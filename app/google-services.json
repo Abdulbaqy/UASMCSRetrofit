@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "272130604629",
+    "project_id": "uas-mcs-53181",
+    "storage_bucket": "uas-mcs-53181.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272130604629:android:7ccf6314b6d14c4a4b1edc",
+        "android_client_info": {
+          "package_name": "com.example.uasmcs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272130604629-aeet75u6a9fncp80kfikgsfan0508fd5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyGrHuMuMhvzV-OELlm_ss2TnExD_n0Fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272130604629-aeet75u6a9fncp80kfikgsfan0508fd5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

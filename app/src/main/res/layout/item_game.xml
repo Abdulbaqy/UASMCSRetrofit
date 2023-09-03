@@ -40,6 +40,14 @@
             android:layout_height="wrap_content"
             android:text="Rating: 0.0" />
 
+        <Button
+            android:id="@+id/addBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Add to library"
+            android:layout_margin="5dp"
+            />
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

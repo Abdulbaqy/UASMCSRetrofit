@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(Login.this, GameList.class);
+                            Intent intent = new Intent(Login.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else {

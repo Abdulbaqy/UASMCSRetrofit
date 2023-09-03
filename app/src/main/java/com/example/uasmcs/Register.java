@@ -69,20 +69,15 @@ public class Register extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Registrasi sukses, tambahkan data pengguna ke Firebase Realtime Database
                             FirebaseUser currentUser = mAuth.getCurrentUser();
                             if (currentUser != null) {
                                 String userId = currentUser.getUid();
 
-                                // Misalnya, simpan nama pengguna ke Firebase Realtime Database
                                 DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("users").child(userId);
                                 userRef.child("username").setValue(username);
                                 userRef.child("email").setValue(email);
 
-                                // Sekarang data pengguna sudah disimpan di Firebase Realtime Database
-
-                                // Lanjutkan ke aktivitas berikutnya (GameList)
-                                Intent intent = new Intent(Register.this, GameList.class);
+                                Intent intent = new Intent(Register.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
@@ -97,11 +92,9 @@ public class Register extends AppCompatActivity {
                 });
     }
     private boolean isValidEmail(String email) {
-        // Validasi alamat email dengan ekspresi reguler
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if (!email.matches(emailPattern)) {
-            // Alamat email tidak sesuai dengan format yang benar
             return false;
         }
         return true;

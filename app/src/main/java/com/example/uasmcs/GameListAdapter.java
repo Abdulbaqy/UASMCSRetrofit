@@ -1,14 +1,13 @@
 package com.example.uasmcs;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,10 +19,16 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
 
     private List<GameModel> gameList;
     private Context context;
+    private GameListener gameListener;
+    private GameDataSource gameDataSource;
 
-    public GameListAdapter(Context context, List<GameModel> gameList) {
+
+    public GameListAdapter(Context context, List<GameModel> gameList, GameListener gameListener, GameDataSource gameDataSource) {
         this.context = context;
         this.gameList = gameList;
+        this.gameListener = gameListener;
+        this.gameDataSource = gameDataSource;
+
     }
 
     @NonNull
@@ -41,10 +46,32 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         holder.gamePriceTextView.setText(String.format("Price: $%.2f", model.getNormalPrice()));
         holder.gameRatingTextView.setText(String.format("Rating: %.1f", model.getSteamRating()));
 
+        if (model.isInLibrary()) {
+            holder.addButton.setText("Delete from library");
+        } else {
+            holder.addButton.setText("Add to library");
+        }
+
         Picasso.get()
                 .load(model.getThumb())
                 .placeholder(R.drawable.placeholder_image)
                 .into(holder.gameImageView);
+
+        holder.addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                model.setInLibrary(!model.isInLibrary());
+                String buttonText = model.isInLibrary() ? "Delete from library" : "Add to library";
+                holder.addButton.setText(buttonText);
+
+                if (model.isInLibrary()) {
+                    gameDataSource.addGameToLibrary(model.getGameId(), model.getTitle(), model.getNormalPrice(), model.getThumb(), model.getSteamRating());
+                } else {
+                    gameDataSource.removeGameFromLibrary(model.getGameId());
+                }
+                gameListener.onGameAddedToLibrary(model);
+            }
+        });
     }
 
     @Override
@@ -57,6 +84,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         TextView gameNameTextView;
         TextView gamePriceTextView;
         TextView gameRatingTextView;
+        Button addButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -64,6 +92,7 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
             gameNameTextView = itemView.findViewById(R.id.gameNameTextView);
             gamePriceTextView = itemView.findViewById(R.id.gamePriceTextView);
             gameRatingTextView = itemView.findViewById(R.id.gameRatingTextView);
+            addButton = itemView.findViewById(R.id.addBtn);
         }
     }
 }
